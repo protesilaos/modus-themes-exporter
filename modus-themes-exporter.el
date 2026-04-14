@@ -123,7 +123,7 @@ function `modus-themes-get-theme-palette'."
 (defun modus-themes-exporter--get-theme (application palette)
   "Return the theme of APPLICATION, using the given PALETTE."
   (unless palette
-    (error "The palette `%s' cannot be nil" palette))
+    (error "The palette cannot be nil"))
   (pcase application
     ('xterm (modus-themes-exporter-get-xterm palette))
     ('urxvt (modus-themes-exporter-get-urxvt palette))
