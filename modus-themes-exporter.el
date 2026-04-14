@@ -171,8 +171,9 @@ CANDIDATES is a list of strings.  METADATA is described in
        modus-themes-exporter-output-types-metadata)
       nil t nil 'modus-themes-exporter-output-prompt-history default))))
 
-(defun modus-themes-exporter--output-buffer (string &optional buffer)
-  "Insert STRING in the *modus-themes-exporter* buffer and display it."
+ (defun modus-themes-exporter--output-buffer (string &optional buffer)
+  "Insert STRING into BUFFER and display it.
+If BUFFER is nil, use the *modus-themes-exporter* buffer."
   (let ((buffer (or buffer (get-buffer-create "*modus-themes-exporter*"))))
     (with-current-buffer buffer
       (erase-buffer)
