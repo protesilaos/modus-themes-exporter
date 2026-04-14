@@ -230,7 +230,7 @@ called interactively, OUTPUT is the prefix argument, in which case
 prompt for a method among the following:
 
 - `file': select a file to write to, creating it if necessary;
-- `buffer': write the theme in a new *modus-themes-export* buffer;
+- `buffer': write the theme in a new *modus-themes-exporter* buffer;
 - `kill-ring': save the theme to the `kill-ring'.
 
 If OUTPUT is not specified, default to `buffer' as noted above."
