@@ -48,7 +48,8 @@
   "Minibuffer history for the `modus-themes-exporter-application-prompt'.")
 
 (defun modus-themes-exporter-application-prompt (&optional text)
-  "Prompt for an application among `modus-themes-exporter-supported-applications'."
+  "Prompt for an application among `modus-themes-exporter-supported-applications'.
+With optional TEXT use it instead of a generic prompt."
   (let ((default (car modus-themes-exporter-application-prompt-history)))
     (intern
      (completing-read
