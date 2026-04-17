@@ -101,36 +101,6 @@ function `modus-themes-get-theme-palette'."
           (cyan-bright (modus-themes-exporter--get-color 'cyan-cooler ,palette)))
      ,@body))
 
-(defmacro modus-themes-exporter-define-xresources (application)
-  "Define a function that is of the XResources type for APPLICATION."
-  `(defun ,(intern (format "modus-themes-exporter-get-%s" application))  (palette)
-     ,(format "Return `%s' theme given PALETTE." application)
-     (unless palette
-       (error "The palette cannot be nil"))
-     (modus-themes-exporter-with-terminal-emulator-palette palette
-       (concat
-        ,(format "%s*background: " application) background "\n"
-        ,(format "%s*foreground: " application) foreground "\n"
-        ,(format "%s*color0: " application) black "\n"
-        ,(format "%s*color1: " application) red "\n"
-        ,(format "%s*color2: " application) green "\n"
-        ,(format "%s*color3: " application) yellow "\n"
-        ,(format "%s*color4: " application) blue "\n"
-        ,(format "%s*color5: " application) magenta "\n"
-        ,(format "%s*color6: " application) cyan "\n"
-        ,(format "%s*color7: " application) white "\n"
-        ,(format "%s*color8: " application) black-bright "\n"
-        ,(format "%s*color9: " application) red-bright "\n"
-        ,(format "%s*color10: " application) green-bright "\n"
-        ,(format "%s*color11: " application) yellow-bright "\n"
-        ,(format "%s*color12: " application) blue-bright "\n"
-        ,(format "%s*color13: " application) magenta-bright "\n"
-        ,(format "%s*color14: " application) cyan-bright "\n"
-        ,(format "%s*color15: " application) white-bright "\n"))))
-
-(modus-themes-exporter-define-xresources xterm)
-(modus-themes-exporter-define-xresources urxvt)
-
 (defun modus-themes-exporter-get-alacritty  (palette)
   "Return PALETTE based theme for Alacritty."
   (unless palette
@@ -245,6 +215,36 @@ function `modus-themes-get-theme-palette'."
      (format "color13 %s\n" magenta-bright)
      (format "color14 %s\n" cyan-bright)
      (format "color15 %s\n" white-bright))))
+
+(defmacro modus-themes-exporter-define-xresources (application)
+  "Define a function that is of the XResources type for APPLICATION."
+  `(defun ,(intern (format "modus-themes-exporter-get-%s" application))  (palette)
+     ,(format "Return `%s' theme given PALETTE." application)
+     (unless palette
+       (error "The palette cannot be nil"))
+     (modus-themes-exporter-with-terminal-emulator-palette palette
+       (concat
+        ,(format "%s*background: " application) background "\n"
+        ,(format "%s*foreground: " application) foreground "\n"
+        ,(format "%s*color0: " application) black "\n"
+        ,(format "%s*color1: " application) red "\n"
+        ,(format "%s*color2: " application) green "\n"
+        ,(format "%s*color3: " application) yellow "\n"
+        ,(format "%s*color4: " application) blue "\n"
+        ,(format "%s*color5: " application) magenta "\n"
+        ,(format "%s*color6: " application) cyan "\n"
+        ,(format "%s*color7: " application) white "\n"
+        ,(format "%s*color8: " application) black-bright "\n"
+        ,(format "%s*color9: " application) red-bright "\n"
+        ,(format "%s*color10: " application) green-bright "\n"
+        ,(format "%s*color11: " application) yellow-bright "\n"
+        ,(format "%s*color12: " application) blue-bright "\n"
+        ,(format "%s*color13: " application) magenta-bright "\n"
+        ,(format "%s*color14: " application) cyan-bright "\n"
+        ,(format "%s*color15: " application) white-bright "\n"))))
+
+(modus-themes-exporter-define-xresources xterm)
+(modus-themes-exporter-define-xresources urxvt)
 
 (defun modus-themes-exporter--get-theme (application palette)
   "Return the theme of APPLICATION, using the given PALETTE."
