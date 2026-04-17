@@ -43,6 +43,46 @@
 
 ;; The same test works for anything that is derived from the macro
 ;; `modus-themes-exporter-define-xresources'.
+(ert-deftest m-modus-themes-exporter-get-alacritty ()
+  "Test that `modus-themes-exporter-get-alacritty' does the right thing."
+  (let ((palette (modus-themes-get-theme-palette 'modus-operandi)))
+    (should-error (modus-themes-exporter-get-alacritty nil))
+    (should
+     (string=
+      (modus-themes-exporter-get-alacritty palette)
+      "[colors.bright]
+black = \"#595959\"
+blue = \"#3548cf\"
+cyan = \"#005f5f\"
+green = \"#316500\"
+magenta = \"#531ab6\"
+red = \"#972500\"
+white = \"#ffffff\"
+yellow = \"#7a4f2f\"
+
+[colors.cursor]
+cursor = \"#ffffff\"
+text = \"#000000\"
+
+[colors.normal]
+black = \"#000000\"
+blue = \"#0031a9\"
+cyan = \"#005e8b\"
+green = \"#006800\"
+magenta = \"#721045\"
+red = \"#a60000\"
+white = \"#f2f2f2\"
+yellow = \"#6f5500\"
+
+[colors.primary]
+background = \"#ffffff\"
+foreground = \"#000000\"
+
+[colors.selection]
+background = \"#000000\"
+text = \"#ffffff\"
+"))))
+
 (ert-deftest m-modus-themes-exporter-get-xterm ()
   "Test that `modus-themes-exporter-get-xterm' does the right thing."
   (let ((palette (modus-themes-get-theme-palette 'modus-operandi)))
@@ -68,6 +108,87 @@ xterm*color12: #3548cf
 xterm*color13: #531ab6
 xterm*color14: #005f5f
 xterm*color15: #ffffff
+"))))
+
+(ert-deftest m-modus-themes-exporter-get-ghostty ()
+  "Test that `modus-themes-exporter-get-ghostty' does the right thing."
+  (let ((palette (modus-themes-get-theme-palette 'modus-operandi)))
+    (should-error (modus-themes-exporter-get-ghostty nil))
+    (should
+     (string=
+      (modus-themes-exporter-get-ghostty palette)
+      "# Background and foreground
+background = #ffffff
+foreground = #000000
+
+# Cursor colors
+cursor-color = #ffffff
+cursor-text = #000000
+
+# Selection colors
+selection-background = #000000
+selection-foreground = #ffffff
+
+# Color palette (16 colors)
+palette = 0=#000000
+palette = 1=#a60000
+palette = 2=#006800
+palette = 3=#6f5500
+palette = 4=#0031a9
+palette = 5=#721045
+palette = 6=#005e8b
+palette = 7=#f2f2f2
+palette = 8=#595959
+palette = 9=#972500
+palette = 10=#316500
+palette = 11=#7a4f2f
+palette = 12=#3548cf
+palette = 13=#531ab6
+palette = 14=#005f5f
+palette = 15=#ffffff
+"))))
+
+(ert-deftest m-modus-themes-exporter-get-kitty ()
+  "Test that `modus-themes-exporter-get-kitty' does the right thing."
+  (let ((palette (modus-themes-get-theme-palette 'modus-operandi)))
+    (should-error (modus-themes-exporter-get-kitty nil))
+    (should
+     (string=
+      (modus-themes-exporter-get-kitty palette)
+      "cursor #ffffff
+cursor_text_color #000000
+url_color #0031a9
+
+active_border_color #595959
+inactive_border_color #f2f2f2
+bell_border_color #7a4f2f
+
+active_tab_foreground #006800
+active_tab_background #f2f2f2
+inactive_tab_foreground #595959
+inactive_tab_background #ffffff
+
+foreground #000000
+background #ffffff
+selection_foreground #ffffff
+selection_background #000000
+
+color0 #000000
+color1 #a60000
+color2 #006800
+color3 #6f5500
+color4 #0031a9
+color5 #721045
+color6 #005e8b
+color7 #f2f2f2
+color8 #595959
+color9 #972500
+color10 #316500
+color11 #7a4f2f
+color12 #3548cf
+color13 #531ab6
+color14 #005f5f
+color15 #ffffff
 "))))
 
 (ert-deftest m-modus-themes-exporter--output-buffer ()
