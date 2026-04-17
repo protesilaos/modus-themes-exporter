@@ -41,7 +41,11 @@
 (require 'modus-themes)
 
 (defvar modus-themes-exporter-supported-applications
-  '(alacritty urxvt xterm)
+  '(alacritty
+    ghostty
+    kitty
+    urxvt
+    xterm)
   "List of symbols representing applications to export a Modus theme to.")
 
 (defvar modus-themes-exporter-application-prompt-history nil
@@ -165,12 +169,91 @@ function `modus-themes-get-theme-palette'."
      (format "background = %S\n" foreground)
      (format "text = %S\n" background))))
 
+(defun modus-themes-exporter-get-ghostty (palette)
+  "Return PALETTE based theme for Ghostty."
+  (unless palette
+    (error "The palette cannot be nil"))
+  (modus-themes-exporter-with-terminal-emulator-palette palette
+    (concat
+     "# Background and foreground" "\n"
+     (format "background = %s\n" background)
+     (format "foreground = %s\n" foreground)
+     "\n"
+     "# Cursor colors" "\n"
+     (format "cursor-color = %s\n" background)
+     (format "cursor-text = %s\n" foreground)
+     "\n"
+     "# Selection colors" "\n"
+     (format "selection-background = %s\n" foreground)
+     (format "selection-foreground = %s\n" background)
+     "\n"
+     "# Color palette (16 colors)" "\n"
+     (format "palette = 0=%s\n" black)
+     (format "palette = 1=%s\n" red)
+     (format "palette = 2=%s\n" green)
+     (format "palette = 3=%s\n" yellow)
+     (format "palette = 4=%s\n" blue)
+     (format "palette = 5=%s\n" magenta)
+     (format "palette = 6=%s\n" cyan)
+     (format "palette = 7=%s\n" white)
+     (format "palette = 8=%s\n" black-bright)
+     (format "palette = 9=%s\n" red-bright)
+     (format "palette = 10=%s\n" green-bright)
+     (format "palette = 11=%s\n" yellow-bright)
+     (format "palette = 12=%s\n" blue-bright)
+     (format "palette = 13=%s\n" magenta-bright)
+     (format "palette = 14=%s\n" cyan-bright)
+     (format "palette = 15=%s\n" white-bright))))
+
+(defun modus-themes-exporter-get-kitty (palette)
+  "Return PALETTE based theme for Kitty."
+  (unless palette
+    (error "The palette cannot be nil"))
+  (modus-themes-exporter-with-terminal-emulator-palette palette
+    (concat
+     (format "cursor %s\n" background)
+     (format "cursor_text_color %s\n" foreground)
+     (format "url_color %s\n" blue)
+     "\n"
+     (format "active_border_color %s\n" foreground-dim)
+     (format "inactive_border_color %s\n" background-dim)
+     (format "bell_border_color %s\n" yellow-bright)
+     "\n"
+     (format "active_tab_foreground %s\n" green)
+     (format "active_tab_background %s\n" background-dim)
+     (format "inactive_tab_foreground %s\n" foreground-dim)
+     (format "inactive_tab_background %s\n" background)
+     "\n"
+     (format "foreground %s\n" foreground)
+     (format "background %s\n" background)
+     (format "selection_foreground %s\n" background)
+     (format "selection_background %s\n" foreground)
+     "\n"
+     (format "color0 %s\n" black)
+     (format "color1 %s\n" red)
+     (format "color2 %s\n" green)
+     (format "color3 %s\n" yellow)
+     (format "color4 %s\n" blue)
+     (format "color5 %s\n" magenta)
+     (format "color6 %s\n" cyan)
+     (format "color7 %s\n" white)
+     (format "color8 %s\n" black-bright)
+     (format "color9 %s\n" red-bright)
+     (format "color10 %s\n" green-bright)
+     (format "color11 %s\n" yellow-bright)
+     (format "color12 %s\n" blue-bright)
+     (format "color13 %s\n" magenta-bright)
+     (format "color14 %s\n" cyan-bright)
+     (format "color15 %s\n" white-bright))))
+
 (defun modus-themes-exporter--get-theme (application palette)
   "Return the theme of APPLICATION, using the given PALETTE."
   (unless palette
     (error "The palette cannot be nil"))
   (pcase application
     ('alacritty (modus-themes-exporter-get-alacritty palette))
+    ('ghostty (modus-themes-exporter-get-ghostty palette))
+    ('kitty (modus-themes-exporter-get-kitty palette))
     ('xterm (modus-themes-exporter-get-xterm palette))
     ('urxvt (modus-themes-exporter-get-urxvt palette))
     (_ (error "The application `%s' is not known" application))))
