@@ -156,36 +156,36 @@ function `modus-themes-get-theme-palette'."
          (cyan-bright (modus-themes-exporter--get-color 'cyan-cooler palette)))
     (concat
      "[colors.bright]" "\n"
-     (format "black = %s\n" black-bright)
-     (format "blue = %s\n" blue-bright)
-     (format "cyan = %s\n" cyan-bright)
-     (format "green = %s\n" green-bright)
-     (format "magenta = %s\n" magenta-bright)
-     (format "red = %s\n" red-bright)
-     (format "white = %s\n" white-bright)
-     (format "yellow = %s\n" yellow-bright)
+     (format "black = %S\n" black-bright)
+     (format "blue = %S\n" blue-bright)
+     (format "cyan = %S\n" cyan-bright)
+     (format "green = %S\n" green-bright)
+     (format "magenta = %S\n" magenta-bright)
+     (format "red = %S\n" red-bright)
+     (format "white = %S\n" white-bright)
+     (format "yellow = %S\n" yellow-bright)
      "\n"
      "[colors.cursor]" "\n"
-     (format "cursor = %s\n" background)
-     (format "text = %s\n" foreground)
+     (format "cursor = %S\n" background)
+     (format "text = %S\n" foreground)
      "\n"
      "[colors.normal]" "\n"
-     (format "black = %s\n" black)
-     (format "blue = %s\n" blue)
-     (format "cyan = %s\n" cyan)
-     (format "green = %s\n" green)
-     (format "magenta = %s\n" magenta)
-     (format "red = %s\n" red)
-     (format "white = %s\n" white)
-     (format "yellow = %s\n" yellow)
+     (format "black = %S\n" black)
+     (format "blue = %S\n" blue)
+     (format "cyan = %S\n" cyan)
+     (format "green = %S\n" green)
+     (format "magenta = %S\n" magenta)
+     (format "red = %S\n" red)
+     (format "white = %S\n" white)
+     (format "yellow = %S\n" yellow)
      "\n"
      "[colors.primary]" "\n"
-     (format "background = %s\n" background)
-     (format "foreground = %s\n" foreground)
+     (format "background = %S\n" background)
+     (format "foreground = %S\n" foreground)
      "\n"
      "[colors.selection]" "\n"
-     (format "background = %s\n" foreground)
-     (format "text = %s\n" background))))
+     (format "background = %S\n" foreground)
+     (format "text = %S\n" background))))
 
 (defun modus-themes-exporter--get-theme (application palette)
   "Return the theme of APPLICATION, using the given PALETTE."
