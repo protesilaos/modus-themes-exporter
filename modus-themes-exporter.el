@@ -131,35 +131,7 @@ function `modus-themes-get-theme-palette'."
   "Return PALETTE based theme for Alacritty."
   (unless palette
     (error "The palette cannot be nil"))
-  (let* ((background (modus-themes-exporter--get-color 'bg-main palette))
-         (background-dim (modus-themes-exporter--get-color 'bg-dim palette))
-         (foreground (modus-themes-exporter--get-color 'fg-main palette))
-         (foreground-dim (modus-themes-exporter--get-color 'fg-dim palette))
-         (bg-dark-p (modus-themes-color-dark-p background))
-         (black (if bg-dark-p
-                    background
-                  foreground))
-         (black-bright (if bg-dark-p
-                           background-dim
-                         foreground-dim))
-         (white (if bg-dark-p
-                    foreground-dim
-                  background-dim))
-         (white-bright (if bg-dark-p
-                           foreground
-                         background))
-         (red (modus-themes-exporter--get-color 'red palette))
-         (green (modus-themes-exporter--get-color 'green palette))
-         (yellow (modus-themes-exporter--get-color 'yellow palette))
-         (blue (modus-themes-exporter--get-color 'blue palette))
-         (magenta (modus-themes-exporter--get-color 'magenta palette))
-         (cyan (modus-themes-exporter--get-color 'cyan palette))
-         (red-bright (modus-themes-exporter--get-color 'red-warmer palette))
-         (green-bright (modus-themes-exporter--get-color 'green-warmer palette))
-         (yellow-bright (modus-themes-exporter--get-color 'yellow-cooler palette))
-         (blue-bright (modus-themes-exporter--get-color 'blue-warmer palette))
-         (magenta-bright (modus-themes-exporter--get-color 'magenta-cooler palette))
-         (cyan-bright (modus-themes-exporter--get-color 'cyan-cooler palette)))
+  (modus-themes-exporter-with-terminal-emulator-palette palette
     (concat
      "[colors.bright]" "\n"
      (format "black = %S\n" black-bright)
