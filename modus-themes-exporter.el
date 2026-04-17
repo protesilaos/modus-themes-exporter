@@ -41,7 +41,7 @@
 (require 'modus-themes)
 
 (defvar modus-themes-exporter-supported-applications
-  '(urxvt xterm)
+  '(alacritty urxvt xterm)
   "List of symbols representing applications to export a Modus theme to.")
 
 (defvar modus-themes-exporter-application-prompt-history nil
@@ -121,11 +121,78 @@ function `modus-themes-get-theme-palette'."
 (modus-themes-exporter-define-xresources xterm)
 (modus-themes-exporter-define-xresources urxvt)
 
+(defun modus-themes-exporter-get-alacritty  (palette)
+  "Return PALETTE based theme for Alacritty."
+  (unless palette
+    (error "The palette cannot be nil"))
+  (let* ((background (modus-themes-exporter--get-color 'bg-main palette))
+         (background-dim (modus-themes-exporter--get-color 'bg-dim palette))
+         (foreground (modus-themes-exporter--get-color 'fg-main palette))
+         (foreground-dim (modus-themes-exporter--get-color 'fg-dim palette))
+         (bg-dark-p (modus-themes-color-dark-p background))
+         (black (if bg-dark-p
+                    background
+                  foreground))
+         (black-bright (if bg-dark-p
+                           background-dim
+                         foreground-dim))
+         (white (if bg-dark-p
+                    foreground-dim
+                  background-dim))
+         (white-bright (if bg-dark-p
+                           foreground
+                         background))
+         (red (modus-themes-exporter--get-color 'red palette))
+         (green (modus-themes-exporter--get-color 'green palette))
+         (yellow (modus-themes-exporter--get-color 'yellow palette))
+         (blue (modus-themes-exporter--get-color 'blue palette))
+         (magenta (modus-themes-exporter--get-color 'magenta palette))
+         (cyan (modus-themes-exporter--get-color 'cyan palette))
+         (red-bright (modus-themes-exporter--get-color 'red-warmer palette))
+         (green-bright (modus-themes-exporter--get-color 'green-warmer palette))
+         (yellow-bright (modus-themes-exporter--get-color 'yellow-cooler palette))
+         (blue-bright (modus-themes-exporter--get-color 'blue-warmer palette))
+         (magenta-bright (modus-themes-exporter--get-color 'magenta-cooler palette))
+         (cyan-bright (modus-themes-exporter--get-color 'cyan-cooler palette)))
+    (concat
+     "[colors.bright]" "\n"
+     (format "black = %s\n" black-bright)
+     (format "blue = %s\n" blue-bright)
+     (format "cyan = %s\n" cyan-bright)
+     (format "green = %s\n" green-bright)
+     (format "magenta = %s\n" magenta-bright)
+     (format "red = %s\n" red-bright)
+     (format "white = %s\n" white-bright)
+     (format "yellow = %s\n" yellow-bright)
+     "\n"
+     "[colors.cursor]" "\n"
+     (format "cursor = %s\n" background)
+     (format "text = %s\n" foreground)
+     "\n"
+     "[colors.normal]" "\n"
+     (format "black = %s\n" black)
+     (format "blue = %s\n" blue)
+     (format "cyan = %s\n" cyan)
+     (format "green = %s\n" green)
+     (format "magenta = %s\n" magenta)
+     (format "red = %s\n" red)
+     (format "white = %s\n" white)
+     (format "yellow = %s\n" yellow)
+     "\n"
+     "[colors.primary]" "\n"
+     (format "background = %s\n" background)
+     (format "foreground = %s\n" foreground)
+     "\n"
+     "[colors.selection]" "\n"
+     (format "background = %s\n" foreground)
+     (format "text = %s\n" background))))
+
 (defun modus-themes-exporter--get-theme (application palette)
   "Return the theme of APPLICATION, using the given PALETTE."
   (unless palette
     (error "The palette cannot be nil"))
   (pcase application
+    ('alacritty (modus-themes-exporter-get-alacritty palette))
     ('xterm (modus-themes-exporter-get-xterm palette))
     ('urxvt (modus-themes-exporter-get-urxvt palette))
     (_ (error "The application `%s' is not known" application))))
