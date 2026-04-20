@@ -324,7 +324,7 @@ If COLOR does not start with `#', return it unchanged."
 
 (defun modus-themes-exporter-get-completion-table (candidates &rest metadata)
   "Return completion table with CANDIDATES and METADATA.
-     CANDIDATES is a list of strings.  METADATA is described in
+CANDIDATES is a list of strings.  METADATA is described in
      `completion-metadata'."
   (lambda (string pred action)
     (if (eq action 'metadata)
@@ -360,7 +360,7 @@ If COLOR does not start with `#', return it unchanged."
 
 (defun modus-themes-exporter--output-buffer (string &optional buffer)
   "Insert STRING into BUFFER and display it.
-     If BUFFER is nil, use the *modus-themes-exporter* buffer."
+If BUFFER is nil, use the *modus-themes-exporter* buffer."
   (let ((buffer (or buffer (get-buffer-create "*modus-themes-exporter*"))))
     (with-current-buffer buffer
       (erase-buffer)
@@ -378,7 +378,7 @@ If COLOR does not start with `#', return it unchanged."
 
 (defun modus-themes-exporter--output-file (file string)
   "Write to FILE the STRING.
-     Display the corresponding buffer and return the buffer."
+Display the corresponding buffer and return the buffer."
   (catch 'exit-early
     (when (file-exists-p file)
       (unless (y-or-n-p "File exists; OVERWRITE it? ")
