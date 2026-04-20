@@ -325,7 +325,7 @@ If COLOR does not start with `#', return it unchanged."
 (defun modus-themes-exporter-get-completion-table (candidates &rest metadata)
   "Return completion table with CANDIDATES and METADATA.
 CANDIDATES is a list of strings.  METADATA is described in
-     `completion-metadata'."
+`completion-metadata'."
   (lambda (string pred action)
     (if (eq action 'metadata)
         (cons 'metadata metadata)
