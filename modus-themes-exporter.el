@@ -118,8 +118,8 @@ function `modus-themes-get-theme-palette'."
      (format "yellow = %S\n" yellow-bright)
      "\n"
      "[colors.cursor]" "\n"
-     (format "cursor = %S\n" background)
-     (format "text = %S\n" foreground)
+     (format "cursor = %S\n" foreground)
+     (format "text = %S\n" background)
      "\n"
      "[colors.normal]" "\n"
      (format "black = %S\n" black)
@@ -150,8 +150,8 @@ function `modus-themes-get-theme-palette'."
      (format "foreground = %s\n" foreground)
      "\n"
      "# Cursor colors" "\n"
-     (format "cursor-color = %s\n" background)
-     (format "cursor-text = %s\n" foreground)
+     (format "cursor-color = %s\n" foreground)
+     (format "cursor-text = %s\n" background)
      "\n"
      "# Selection colors" "\n"
      (format "selection-background = %s\n" foreground)
@@ -181,8 +181,8 @@ function `modus-themes-get-theme-palette'."
     (error "The palette cannot be nil"))
   (modus-themes-exporter-with-terminal-emulator-palette palette
     (concat
-     (format "cursor %s\n" background)
-     (format "cursor_text_color %s\n" foreground)
+     (format "cursor %s\n" foreground)
+     (format "cursor_text_color %s\n" background)
      (format "url_color %s\n" blue)
      "\n"
      (format "active_border_color %s\n" foreground-dim)
