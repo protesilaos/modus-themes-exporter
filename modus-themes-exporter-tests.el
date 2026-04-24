@@ -1,9 +1,9 @@
 ;;; modus-themes-exporter-test.el --- Unit tests for the Modus themes exporter -*- lexical-binding: t -*-
 
-;; Copyright (C) 2026  Protesilaos Stavrou
+;; Copyright (C) 2026  Protesilaos
 
-;; Author: Protesilaos Stavrou <info@protesilaos.com>
-;; Maintainer: Protesilaos Stavrou <info@protesilaos.com>
+;; Author: Protesilaos <info@protesilaos.com>
+;; Maintainer: Protesilaos <info@protesilaos.com>
 ;; URL: https://github.com/protesilaos/denote
 
 ;; This file is NOT part of GNU Emacs.

@@ -1,9 +1,9 @@
 ;;; modus-themes-exporter.el --- Export a Modus themes to another application -*- lexical-binding:t -*-
 
-;; Copyright (C) 2026  Protesilaos Stavrou
+;; Copyright (C) 2026  Protesilaos
 
-;; Author: Protesilaos Stavrou <info@protesilaos.com>
-;; Maintainer: Protesilaos Stavrou <info@protesilaos.com>
+;; Author: Protesilaos <info@protesilaos.com>
+;; Maintainer: Protesilaos <info@protesilaos.com>
 ;; URL: https://github.com/protesilaos/modus-themes-exporter
 ;; Version: 0.0.0
 ;; Package-Requires: ((emacs "28.1") (modus-themes "5.2.0"))
