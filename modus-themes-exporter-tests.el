@@ -198,7 +198,7 @@ color15 #ffffff
 
 (ert-deftest m-modus-themes-exporter--output-file ()
   (let ((existing-file (make-temp-file "modus-themes-exporter-test-empty-file")))
-    (cl-letf (((symbol-function 'y-or-n-p) #'ignore)) ; This is means "no" to the overwrite
+    (cl-letf (((symbol-function 'y-or-n-p) #'ignore)) ; This is "no" to the overwrite
       (should-not (modus-themes-exporter--output-file existing-file "hello")))
     (cl-letf (((symbol-function 'y-or-n-p) #'always)) ; This is "yes" to the overwrite
       (should (bufferp (modus-themes-exporter--output-file existing-file "hello"))))))
