@@ -110,6 +110,40 @@ xterm*color14: #005f5f
 xterm*color15: #ffffff
 "))))
 
+(ert-deftest m-modus-themes-exporter-get-foot ()
+  "Test that `modus-themes-exporter-get-foot' does the right thing."
+  (let ((palette (modus-themes-get-theme-palette 'modus-operandi)))
+    (should-error (modus-themes-exporter-get-foot nil))
+    (should
+     (string=
+      (modus-themes-exporter-get-foot palette)
+      "# Background and foreground
+background=ffffff
+foreground=000000
+
+# Jump labels
+jump-labels=000000 6f5500
+
+# Color palette (16 colors)
+regular0=000000
+regular1=a60000
+regular2=006800
+regular3=6f5500
+regular4=0031a9
+regular5=721045
+regular6=005e8b
+regular7=f2f2f2
+bright0=595959
+bright1=972500
+bright2=316500
+bright3=7a4f2f
+bright4=3548cf
+bright5=531ab6
+bright6=005f5f
+bright7=ffffff
+"))))
+
+
 (ert-deftest m-modus-themes-exporter-get-ghostty ()
   "Test that `modus-themes-exporter-get-ghostty' does the right thing."
   (let ((palette (modus-themes-get-theme-palette 'modus-operandi)))

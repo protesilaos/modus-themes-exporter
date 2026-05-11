@@ -42,6 +42,7 @@
 
 (defvar modus-themes-exporter-supported-applications
   '(alacritty
+    foot
     ghostty
     kitty
     urxvt
@@ -101,6 +102,13 @@ function `modus-themes-get-theme-palette'."
           (cyan-bright (modus-themes-exporter--get-color 'cyan-cooler ,palette)))
      ,@body))
 
+(defun modus-themes-exporter--strip-hash (color)
+  "Return COLOR hex string without a leading `#'.
+If COLOR does not start with `#', return it unchanged."
+  (if (and (stringp color) (string-prefix-p "#" color))
+      (substring color 1)
+    color))
+
 (defun modus-themes-exporter-get-alacritty  (palette)
   "Return PALETTE based theme for Alacritty."
   (unless palette
@@ -138,6 +146,55 @@ function `modus-themes-get-theme-palette'."
      "[colors.selection]" "\n"
      (format "background = %S\n" foreground)
      (format "text = %S\n" background))))
+
+(defun modus-themes-exporter-get-foot (palette)
+  "Return PALETTE based theme for Foot."
+  (unless palette
+    (error "The palette cannot be nil"))
+  (modus-themes-exporter-with-terminal-emulator-palette palette
+    (let* ((background (modus-themes-exporter--strip-hash background))
+           (foreground (modus-themes-exporter--strip-hash foreground))
+           (black (modus-themes-exporter--strip-hash black))
+           (red (modus-themes-exporter--strip-hash red))
+           (green (modus-themes-exporter--strip-hash green))
+           (yellow (modus-themes-exporter--strip-hash yellow))
+           (blue (modus-themes-exporter--strip-hash blue))
+           (magenta (modus-themes-exporter--strip-hash magenta))
+           (cyan (modus-themes-exporter--strip-hash cyan))
+           (white (modus-themes-exporter--strip-hash white))
+           (black-bright (modus-themes-exporter--strip-hash black-bright))
+           (red-bright (modus-themes-exporter--strip-hash red-bright))
+           (green-bright (modus-themes-exporter--strip-hash green-bright))
+           (yellow-bright (modus-themes-exporter--strip-hash yellow-bright))
+           (blue-bright (modus-themes-exporter--strip-hash blue-bright))
+           (magenta-bright (modus-themes-exporter--strip-hash magenta-bright))
+           (cyan-bright (modus-themes-exporter--strip-hash cyan-bright))
+           (white-bright (modus-themes-exporter--strip-hash white-bright)))
+      (concat
+       "# Background and foreground" "\n"
+       (format "background=%s\n" background)
+       (format "foreground=%s\n" foreground)
+       "\n"
+       "# Jump labels" "\n"
+       (format "jump-labels=%s %s\n" black yellow)
+       "\n"
+       "# Color palette (16 colors)" "\n"
+       (format "regular0=%s\n" black)
+       (format "regular1=%s\n" red)
+       (format "regular2=%s\n" green)
+       (format "regular3=%s\n" yellow)
+       (format "regular4=%s\n" blue)
+       (format "regular5=%s\n" magenta)
+       (format "regular6=%s\n" cyan)
+       (format "regular7=%s\n" white)
+       (format "bright0=%s\n" black-bright)
+       (format "bright1=%s\n" red-bright)
+       (format "bright2=%s\n" green-bright)
+       (format "bright3=%s\n" yellow-bright)
+       (format "bright4=%s\n" blue-bright)
+       (format "bright5=%s\n" magenta-bright)
+       (format "bright6=%s\n" cyan-bright)
+       (format "bright7=%s\n" white-bright)))))
 
 (defun modus-themes-exporter-get-ghostty (palette)
   "Return PALETTE based theme for Ghostty."
@@ -252,6 +309,7 @@ function `modus-themes-get-theme-palette'."
     (error "The palette cannot be nil"))
   (pcase application
     ('alacritty (modus-themes-exporter-get-alacritty palette))
+    ('foot (modus-themes-exporter-get-foot palette))
     ('ghostty (modus-themes-exporter-get-ghostty palette))
     ('kitty (modus-themes-exporter-get-kitty palette))
     ('xterm (modus-themes-exporter-get-xterm palette))
@@ -282,7 +340,7 @@ CANDIDATES is a list of strings.  METADATA is described in
             ("buffer" "Write to a buffer and display it")
             ("file" "Write to a file and display its buffer")
             ("kill-ring" "Save to the `kill-ring'"))))
-      
+
 (defvar modus-themes-exporter-output-types-metadata
   '((category . nil)
     (annotation-function . modus-themes-exporter-output-annotate))
@@ -300,7 +358,7 @@ CANDIDATES is a list of strings.  METADATA is described in
        modus-themes-exporter-output-types-metadata)
       nil t nil 'modus-themes-exporter-output-prompt-history default))))
 
- (defun modus-themes-exporter--output-buffer (string &optional buffer)
+(defun modus-themes-exporter--output-buffer (string &optional buffer)
   "Insert STRING into BUFFER and display it.
 If BUFFER is nil, use the *modus-themes-exporter* buffer."
   (let ((buffer (or buffer (get-buffer-create "*modus-themes-exporter*"))))
@@ -333,7 +391,7 @@ Display the corresponding buffer and return the buffer."
       (with-current-buffer buffer
         (save-buffer))
       buffer)))
-  
+
 (defun modus-themes-exporter--output-result (output string)
   "Use OUTPUT to present the RESULT.
 OUTPUT is a member of `modus-themes-exporter-output-types'.
@@ -344,7 +402,7 @@ STRING is the theme of a supported target application."
     ((pred stringp) (modus-themes-exporter--output-file output string))
     ('file (error "The `file' output should be represented as a file path"))
     (_ (error "The output `%s' is unknown" output))))
-  
+
 ;;;###autoload
 (defun modus-themes-exporter-export (theme application &optional output)
   "Export Modus THEME to the given APPLICATION.
