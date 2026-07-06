@@ -98,7 +98,8 @@ function `modus-themes-get-theme-palette'."
           (yellow-bright (modus-themes-exporter--get-color 'yellow-cooler ,palette))
           (blue-bright (modus-themes-exporter--get-color 'blue-warmer ,palette))
           (magenta-bright (modus-themes-exporter--get-color 'magenta-cooler ,palette))
-          (cyan-bright (modus-themes-exporter--get-color 'cyan-cooler ,palette)))
+          (cyan-bright (modus-themes-exporter--get-color 'cyan-cooler ,palette))
+          (divider (modus-themes-exporter--get-color 'border ,palette)))
      ,@body))
 
 (defun modus-themes-exporter-get-alacritty  (palette)
@@ -173,7 +174,10 @@ function `modus-themes-get-theme-palette'."
      (format "palette = 12=%s\n" blue-bright)
      (format "palette = 13=%s\n" magenta-bright)
      (format "palette = 14=%s\n" cyan-bright)
-     (format "palette = 15=%s\n" white-bright))))
+     (format "palette = 15=%s\n" white-bright)
+     "\n"
+     "# Split divider color" "\n"
+     (format "split-divider-color = %s\n" divider))))
 
 (defun modus-themes-exporter-get-kitty (palette)
   "Return PALETTE based theme for Kitty."
